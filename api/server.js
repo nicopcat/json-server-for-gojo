@@ -1,16 +1,10 @@
 const jsonServer = require('json-server');
-const path = require('path');
+const fs = require("fs")
+const path = require("path")
+const db = JSON.parse(fs.readFileSync(path.join("db.json")))
 const server = jsonServer.create();
-const router = jsonServer.router('db.json');
+const router = jsonServer.router(db);
 const middlewares = jsonServer.defaults();
-const fs = require('fs');
-const data = {
-   title: "",
-    body: "",
-    author: ""
-};
-const filePath = path.join('/tmp', 'db.json');
-fs.writeFileSync(filePath, JSON.stringify(data));
 
 server.use(middlewares);
 // Add this before server.use(router)
